@@ -81,54 +81,6 @@ func cmdAdd(args *skel.CmdArgs) error {
 }
 
 func cmdDel(args *skel.CmdArgs) error {
-	/*conf, _, err := parseConf(args.StdinData)
-	if err != nil {
-		return err
-	}
-	err = ns.WithNetNSPath(args.Netns, func(_ ns.NetNS) error {
-		vrf, err := findVRF(conf.VRFName)
-		if _, ok := err.(netlink.LinkNotFoundError); ok {
-			return nil
-		}
-
-		if err != nil {
-			return err
-		}
-
-		err = resetMaster(args.IfName)
-		if err != nil {
-			return err
-		}
-
-		interfaces, err := assignedInterfaces(vrf)
-		if err != nil {
-			return err
-		}
-
-		// Meaning, we are deleting the last interface assigned to the VRF
-		if len(interfaces) == 0 {
-			err = netlink.LinkDel(vrf)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	})
-
-	if err != nil {
-		//  if NetNs is passed down by the Cloud Orchestration Engine, or if it called multiple times
-		// so don't return an error if the device is already removed.
-		// https://github.com/kubernetes/kubernetes/issues/43014#issuecomment-287164444
-		_, ok := err.(ns.NSPathNotExistErr)
-		if ok {
-			return nil
-		}
-		return err
-	}
-
-	if err != nil {
-		return fmt.Errorf("cmdDel failed: %v", err)
-	}*/
 	return nil
 }
 

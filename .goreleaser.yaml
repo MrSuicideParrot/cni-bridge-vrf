@@ -1,0 +1,11 @@
+builds:
+  - 
+    main: ./main.go
+    id: "bridge-vrf"
+    binary: bridge-vrf
+    goos:
+      - linux
+    goarch:
+    - amd64
+    - arm
+    - arm64

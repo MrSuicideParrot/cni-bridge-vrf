@@ -1,4 +1,4 @@
-module github.com/MrSuicideParrot/cni-vrf-bridge
+module github.com/MrSuicideParrot/cni-bridge-vrf
 
 go 1.17
 
