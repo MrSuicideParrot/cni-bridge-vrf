@@ -2,7 +2,7 @@
 
 A CNI plugin to assign a bridge to a [VRF](https://www.kernel.org/doc/html/latest/networking/vrf.html).
 
-CNI networks of the [type `bridge`](https://www.cni.dev/plugins/current/main/bridge/), in `ipMasq` mode, use the host's routing table to route traffic. Therefore, it's impossible to implement network segregation without firewall rules and a custom routing table. This process has a major inconvenience. It needs to maintain a custom set of firewall rules for each CNI network that will mark traffic based on its source address and route it through a specific routing table.[^1]
+CNI networks of the [type `bridge`](https://www.cni.dev/plugins/current/main/bridge/), in `ipMasq` mode, use the host's routing table to route traffic. Therefore, it's impossible to implement network segregation without firewall rules and a custom routing table. This process has a major inconvenience. You need to maintain a set of firewall rules for each CNI network that will mark traffic based on its source address and route it through a specific routing table.[^1]
 
 This plugin simplifies this process by automatically putting the CNI bridge interface assigned to a VRF of your choice.
 
