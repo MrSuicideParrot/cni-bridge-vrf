@@ -1,28 +1,28 @@
 # cni-bridge-vrf
 
-A CNI plugin that assignes bridges to [VRFs](https://www.kernel.org/doc/html/latest/networking/vrf.html).
+A CNI plugin to assign a bridge to a [VRF](https://www.kernel.org/doc/html/latest/networking/vrf.html).
 
-CNI networks of the type `bridge`, in `ipMasq` mode, use the routing table of the host to route traffic, which means that without firewall rules and a custom routing table it is not possible to implement network segregation. This process has a major incovenient, you need to maintain a custom set of firewall rules for each CNI network, that will mark traffic based on its source address and route it through a specific routing table.[^1]
+CNI networks of the [type `bridge`](https://www.cni.dev/plugins/current/main/bridge/), in `ipMasq` mode, use the host's routing table to route traffic. Therefore, it's impossible to implement network segregation without firewall rules and a custom routing table. This process has a major inconvenience. It needs to maintain a custom set of firewall rules for each CNI network that will mark traffic based on its source address and route it through a specific routing table.[^1]
 
-This plugin tries to solve this complexity by putting automatically the bridge interface of a CNI network inside a VRF at your choice, with a separate routing table from your host.
+This plugin simplifies this process by automatically putting the CNI bridge interface assigned to a VRF of your choice.
 
 CNI has an [official plugin for  VRF](https://www.cni.dev/plugins/current/meta/vrf/). However, when applied to a `bridge` network, it puts the [veth interface](https://man7.org/linux/man-pages/man4/veth.4.html) of the container inside a VRF and not the bridge interface. 
 
 ##  Instalation
-* Download the [latest version](https://github.com/MrSuicideParrot/cni-bridge-vrf/releases) of the cni-bridge-vrf plugin.
-* Move the binary to your CNI plugin location.
-       * For Podman: `/usr/lib/cni`
-* You are ready to use this plugin!
+1. Download the right binary from our [latest release](https://github.com/MrSuicideParrot/cni-bridge-vrf/releases).
+2. Untar the binary and move it to your CNI plugin location.
+   * Podman default location: `/usr/lib/cni`.
+3. You are ready to use this plugin!
 
 ## Build it yourself
-Just run the following command:
+Just run the following command after cloning this repo.
 ```
 go build -o bridge-vrf
 ```
 
 ## Configuration
 
-To configure a CNI network to use this plugin you need to add the following json to the *plugins* array of your configuration file. The value of the *vrfname* key should be the name of the vrf that you want to assign. If the VRF doesn't exists, it will be created on the moment of the bridge creation.  
+To configure a CNI network to use this plugin, you need to add the following JSON to the *plugins* array of your configuration file. The value of the *vrfname* key should be the name of the VRF that you want to assign. If the VRF doesn't exist, it will be created at the moment of the bridge creation.  
 
 ```json
  {
@@ -36,7 +36,7 @@ A complete example of a network configuration with this plugin:
 ```json
 {
    "cniVersion": "0.4.0",
-   "name": "vtf-teste",
+   "name": "vrf-teste",
    "plugins": [
        {
               "type": "bridge",
