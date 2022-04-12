@@ -57,7 +57,7 @@ func cmdAdd(args *skel.CmdArgs) error {
 	// If the user set a tableid and the vrf is already in the namespace
 	// we check if the tableid is the same one already assigned to the vrf.
 	if err == nil && conf.Table != 0 && vrf.Table != conf.Table {
-		return fmt.Errorf("VRF %s already exist with different routing table %d", conf.VRFName, vrf.Table)
+		return types.PrintResult(&current.Result{}, conf.CNIVersion)
 	}
 
 	if _, ok := err.(netlink.LinkNotFoundError); ok {
