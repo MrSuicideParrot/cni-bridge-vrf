@@ -94,7 +94,14 @@ func addInterface(vrf *netlink.Vrf, intf string) error {
 		if err != nil {
 			return fmt.Errorf("interface %s has already a master set, could not retrieve the name: %v", intf, err)
 		}
-		return fmt.Errorf("interface %s has already a master set: %s", intf, master.Attrs().Name)
+		if master.Attrs().Name == vrf.Name {
+			return nil
+		} else {
+			err = netlink.LinkSetNoMaster(i)
+			if err != nil {
+				return fmt.Errorf("could not remove vrf %s from interface %v, %v", master.Attrs().Name, intf, err)
+			}
+		}
 	}
 
 	// IPV6 addresses are not maintained unless
